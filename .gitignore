@@ -1,0 +1,17 @@
+.idea
+.bsp
+.metals
+*.iml
+.idea_modules/
+bin/
+
+.history
+.cache
+.lib/
+
+*.class
+*.log
+
+target/
+/project/target/
+/project/project/target/

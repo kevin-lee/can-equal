@@ -1,2 +1,2 @@
 # can-equals
-Add missing CanEqual typeclass instances to Scala 3
+Add missing `CanEqual` typeclass instances to Scala 3
