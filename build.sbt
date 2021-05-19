@@ -11,10 +11,12 @@ ThisBuild / scmInfo :=
       s"https://github.com/${props.GitHubUsername}/${props.RepoName}.git",
     )
   )
+ThisBuild / licenses := props.licenses
 
 lazy val canEqualsRoot = (project in file("."))
   .settings(
     name := s"${props.RepoName}-root",
+    licenses := props.licenses,
   )
   .settings(
     noPublish
@@ -27,7 +29,8 @@ lazy val canEquals = Project(props.RepoName, file(props.RepoName))
   .settings(
     name := props.RepoName,
     libraryDependencies ++= libs.hedgehog,
-    testFrameworks ~= (testFws => TestFramework("hedgehog.sbt.Framework") +: testFws)
+    testFrameworks ~= (testFws => TestFramework("hedgehog.sbt.Framework") +: testFws),
+    licenses := props.licenses,
   )
 
 lazy val props =
@@ -41,6 +44,8 @@ lazy val props =
     final val RepoName       = "can-equals"
 
     final val HedgehogVersion = "0.7.0"
+
+    final val licenses = List("MIT" -> url("http://opensource.org/licenses/MIT"))
 
   }
 
