@@ -12,9 +12,22 @@ ThisBuild / scmInfo :=
     )
   )
 
-lazy val root = (project in file("."))
+lazy val canEqualsRoot = (project in file("."))
   .settings(
-    name := props.RepoName
+    name := s"${props.RepoName}-root",
+  )
+  .settings(
+    noPublish
+  )
+  .aggregate(
+    canEquals
+  )
+
+lazy val canEquals = Project(props.RepoName, file(props.RepoName))
+  .settings(
+    name := props.RepoName,
+    libraryDependencies ++= libs.hedgehog,
+    testFrameworks ~= (testFws => TestFramework("hedgehog.sbt.Framework") +: testFws)
   )
 
 lazy val props =
@@ -23,8 +36,19 @@ lazy val props =
 
     final val ProjectScalaVersion = "3.0.0"
 
-    final val Organization = "io.kevinlee"
-
+    final val Organization   = "io.kevinlee"
     final val GitHubUsername = "Kevin-Lee"
     final val RepoName       = "can-equals"
+
+    final val HedgehogVersion = "0.7.0"
+
+  }
+
+lazy val libs =
+  new {
+    lazy val hedgehog = Seq(
+      "qa.hedgehog" %% "hedgehog-core"   % props.HedgehogVersion,
+      "qa.hedgehog" %% "hedgehog-runner" % props.HedgehogVersion,
+      "qa.hedgehog" %% "hedgehog-sbt"    % props.HedgehogVersion
+    )
   }
