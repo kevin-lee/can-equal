@@ -21,14 +21,6 @@ else
 #  test_task="test scalafix"
   test_task="test"
 
-  echo "sbt -J-Xmx2048m ++${scala_version}! -v clean ${test_task}"
-  sbt \
-    -J-Xmx2048m \
-    ++${scala_version}! \
-    -v \
-    clean \
-    ${test_task}
-
   export SOURCE_DATE_EPOCH=$(date +%s)
   echo "SOURCE_DATE_EPOCH=$SOURCE_DATE_EPOCH"
 
@@ -39,7 +31,7 @@ else
       ++${scala_version}! \
       -v \
       clean \
-      test \
+      ${test_task} \
       packagedArtifacts
   else
     sbt \
@@ -47,7 +39,7 @@ else
       ++${scala_version}! \
       -v \
       clean \
-      test \
+      ${test_task} \
       package
   fi
 
