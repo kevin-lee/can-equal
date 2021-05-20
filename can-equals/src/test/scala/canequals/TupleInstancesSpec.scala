@@ -83,7 +83,7 @@ object TupleInstancesSpec extends Properties {
   }
 
   def testTuple5EqualsTuple6: Property = for {
-    t1 <- genTuple5.log("t1")
+    t1    <- genTuple5.log("t1")
     tuple <- genTuple5.map(t2 => (t1 ++ t2).take(6)).log("tuple")
   } yield {
     import canequals.tuples.canEqualEmptyTuple
@@ -97,11 +97,11 @@ object TupleInstancesSpec extends Properties {
   }
 
   def testTuple5EqualsTuple7: Property = for {
-    t1 <- genTuple5.log("t1")
+    t1    <- genTuple5.log("t1")
     tuple <- genTuple5.map(t2 => (t1 ++ t2).take(7)).log("tuple")
   } yield {
-   import canequals.tuples.canEqualEmptyTuple
-   import canequals.tuples.canEqualTuple
+    import canequals.tuples.canEqualEmptyTuple
+    import canequals.tuples.canEqualTuple
 
     Result.diffNamed(
       "(Int, String, Boolean, Char, Double, Int, String) == (Int, String, Boolean, Char, Double, Int, String)",

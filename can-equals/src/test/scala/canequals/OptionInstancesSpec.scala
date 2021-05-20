@@ -32,11 +32,15 @@ object OptionInstancesSpec extends Properties {
 
   def testSomeNotEqualSome: Property = for {
     a1 <- Gen.int(Range.linear(Int.MinValue, Int.MaxValue)).log("a1")
-    a2 <- Gen.int(Range.linear(Int.MinValue, Int.MaxValue))
-      .map { n =>
-        if (n == a1) n + 1 else n
-      }
-      .log("a2")
+    a2 <- Gen
+            .int(Range.linear(Int.MinValue, Int.MaxValue))
+            .map { n =>
+              if (n == a1)
+                n + 1
+              else
+                n
+            }
+            .log("a2")
   } yield {
     import canequals.options.canEqualOptions
     val o1: Option[Int] = Some(a1)
@@ -100,8 +104,10 @@ object OptionInstancesSpec extends Properties {
     import canequals.options.canEqualOption
     val o1: Option[Int] = Some(a)
     o1 match {
-      case Some(a) => Result.success
-      case None => Result.failure.log(s"Pattern matching for Option does not work. $o1")
+      case Some(a) =>
+        Result.success
+      case None    =>
+        Result.failure.log(s"Pattern matching for Option does not work. $o1")
     }
   }
 
