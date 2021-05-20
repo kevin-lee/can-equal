@@ -3,6 +3,8 @@ package canequals
 import hedgehog._
 import hedgehog.runner._
 
+import language.strictEquality
+
 /** @author Kevin Lee
   * @since 2021-05-19
   */
