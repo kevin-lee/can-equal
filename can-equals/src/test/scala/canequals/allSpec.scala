@@ -54,7 +54,7 @@ object allSpec extends Properties {
   def testSomeEqualsSome: Property = for {
     a <- Gen.int(Range.linear(Int.MinValue, Int.MaxValue)).log("a")
   } yield {
-    
+
     val o1: Option[Int] = Some(a)
     val o2: Option[Int] = Some(a)
     Result.diffNamed("Some == Some", o1, o2)(_ == _)
@@ -62,13 +62,17 @@ object allSpec extends Properties {
 
   def testSomeNotEqualSome: Property = for {
     a1 <- Gen.int(Range.linear(Int.MinValue, Int.MaxValue)).log("a1")
-    a2 <- Gen.int(Range.linear(Int.MinValue, Int.MaxValue))
-      .map { n =>
-        if (n == a1) n + 1 else n
-      }
-      .log("a2")
+    a2 <- Gen
+            .int(Range.linear(Int.MinValue, Int.MaxValue))
+            .map { n =>
+              if (n == a1)
+                n + 1
+              else
+                n
+            }
+            .log("a2")
   } yield {
-    
+
     val o1: Option[Int] = Some(a1)
     val o2: Option[Int] = Some(a2)
     Result.diffNamed("Some != Some", o1, o2)(_ != _)
@@ -77,7 +81,7 @@ object allSpec extends Properties {
   def testSomeEqualsNone: Property = for {
     a <- Gen.int(Range.linear(Int.MinValue, Int.MaxValue)).log("a")
   } yield {
-    
+
     val o1: Option[Int] = Some(a)
     val o2: Option[Int] = None
     Result.diffNamed("Some == None should be false", o1, o2)((x1, x2) => (x1 == x2) == false)
@@ -86,7 +90,7 @@ object allSpec extends Properties {
   def testNoneEqualsSome: Property = for {
     a <- Gen.int(Range.linear(Int.MinValue, Int.MaxValue)).log("a")
   } yield {
-    
+
     val o1: Option[Int] = None
     val o2: Option[Int] = Some(a)
     Result.diffNamed("Some == None should be false", o1, o2)((x1, x2) => (x1 == x2) == false)
@@ -95,7 +99,7 @@ object allSpec extends Properties {
   def testSomeNotEqualNone: Property = for {
     a <- Gen.int(Range.linear(Int.MinValue, Int.MaxValue)).log("a")
   } yield {
-    
+
     val o1: Option[Int] = Some(a)
     val o2: Option[Int] = None
     Result.diffNamed("Some != None should be true", o1, o2)(_ != _)
@@ -104,21 +108,21 @@ object allSpec extends Properties {
   def testNoneNotEqualSome: Property = for {
     a <- Gen.int(Range.linear(Int.MinValue, Int.MaxValue)).log("a")
   } yield {
-    
+
     val o1: Option[Int] = None
     val o2: Option[Int] = Some(a)
     Result.diffNamed("Some != None should be true", o1, o2)(_ != _)
   }
 
   def testNoneEqualsNone: Result = {
-    
+
     val o1: Option[Int] = None
     val o2: Option[Int] = None
     Result.diffNamed("None == None should be true", o1, o2)(_ == _)
   }
 
   def testNoneNotEqualNone: Result = {
-    
+
     val o1: Option[Int] = None
     val o2: Option[Int] = None
     Result.diffNamed("None != None should be false", o1, o2)((x1, x2) => (x1 != x2) == false)
@@ -127,14 +131,15 @@ object allSpec extends Properties {
   def testSomeEqualsSomePatternMatching: Property = for {
     a <- Gen.int(Range.linear(Int.MinValue, Int.MaxValue)).log("a")
   } yield {
-    
+
     val o1: Option[Int] = Some(a)
     o1 match {
-      case Some(a) => Result.success
-      case None => Result.failure.log(s"Pattern matching for Option does not work. $o1")
+      case Some(a) =>
+        Result.success
+      case None    =>
+        Result.failure.log(s"Pattern matching for Option does not work. $o1")
     }
   }
-
 
   def testRightEqualsRight: Property = for {
     b <- Gen.int(Range.linear(Int.MinValue, Int.MaxValue)).log("b")
@@ -147,10 +152,15 @@ object allSpec extends Properties {
 
   def testRightNotEqualsRight: Property = for {
     b1 <- Gen.int(Range.linear(Int.MinValue, Int.MaxValue)).log("b1")
-    b2 <- Gen.int(Range.linear(Int.MinValue, Int.MaxValue))
-      .map { n =>
-        if (n == b1) n + 1 else n
-      }.log("b2")
+    b2 <- Gen
+            .int(Range.linear(Int.MinValue, Int.MaxValue))
+            .map { n =>
+              if (n == b1)
+                n + 1
+              else
+                n
+            }
+            .log("b2")
   } yield {
 
     val r1: Either[String, Int] = Right(b1)
@@ -169,11 +179,15 @@ object allSpec extends Properties {
 
   def testLeftNotEqualsLeft: Property = for {
     a1 <- Gen.string(Gen.unicodeAll, Range.linear(0, 20)).log("a1")
-    a2 <- Gen.string(Gen.unicodeAll, Range.linear(0, 20))
-      .map { s =>
-        if (s == a1) s + "a" else s
-      }
-      .log("a2")
+    a2 <- Gen
+            .string(Gen.unicodeAll, Range.linear(0, 20))
+            .map { s =>
+              if (s == a1)
+                s + "a"
+              else
+                s
+            }
+            .log("a2")
   } yield {
 
     val l1: Either[String, Int] = Left(a1)
@@ -185,7 +199,6 @@ object allSpec extends Properties {
     a <- Gen.string(Gen.unicodeAll, Range.linear(0, 20)).log("a")
     b <- Gen.int(Range.linear(Int.MinValue, Int.MaxValue)).log("b")
   } yield {
-    
 
     val r1: Either[String, Int] = Right(b)
     val r2: Either[String, Int] = Left(a)
@@ -216,12 +229,11 @@ object allSpec extends Properties {
     a <- Gen.string(Gen.unicodeAll, Range.linear(0, 20)).log("a")
     b <- Gen.int(Range.linear(Int.MinValue, Int.MaxValue)).log("b")
   } yield {
-    
+
     val r1: Either[String, Int] = Left(a)
     val r2: Either[String, Int] = Right(b)
     Result.diffNamed("Left != Right should be true", r1, r2)(_ != _)
   }
-
 
   def genTuple5: Gen[(Int, String, Boolean, Char, Double)] = for {
     t1 <- Gen.int(Range.linear(Int.MinValue, Int.MaxValue))
@@ -272,7 +284,7 @@ object allSpec extends Properties {
   }
 
   def testTuple5EqualsTuple6: Property = for {
-    t1 <- genTuple5.log("t1")
+    t1    <- genTuple5.log("t1")
     tuple <- genTuple5.map(t2 => (t1 ++ t2).take(6)).log("tuple")
   } yield {
 
@@ -284,7 +296,7 @@ object allSpec extends Properties {
   }
 
   def testTuple5EqualsTuple7: Property = for {
-    t1 <- genTuple5.log("t1")
+    t1    <- genTuple5.log("t1")
     tuple <- genTuple5.map(t2 => (t1 ++ t2).take(7)).log("tuple")
   } yield {
 

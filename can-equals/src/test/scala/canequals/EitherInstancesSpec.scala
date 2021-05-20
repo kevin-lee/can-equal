@@ -32,10 +32,15 @@ object EitherInstancesSpec extends Properties {
 
   def testRightNotEqualsRight: Property = for {
     b1 <- Gen.int(Range.linear(Int.MinValue, Int.MaxValue)).log("b1")
-    b2 <- Gen.int(Range.linear(Int.MinValue, Int.MaxValue))
-      .map { n =>
-        if (n == b1) n + 1 else n
-      }.log("b2")
+    b2 <- Gen
+            .int(Range.linear(Int.MinValue, Int.MaxValue))
+            .map { n =>
+              if (n == b1)
+                n + 1
+              else
+                n
+            }
+            .log("b2")
   } yield {
     import canequals.eithers.canEqualEither
 
@@ -56,11 +61,15 @@ object EitherInstancesSpec extends Properties {
 
   def testLeftNotEqualsLeft: Property = for {
     a1 <- Gen.string(Gen.unicodeAll, Range.linear(0, 20)).log("a1")
-    a2 <- Gen.string(Gen.unicodeAll, Range.linear(0, 20))
-      .map { s =>
-        if (s == a1) s + "a" else s
-      }
-      .log("a2")
+    a2 <- Gen
+            .string(Gen.unicodeAll, Range.linear(0, 20))
+            .map { s =>
+              if (s == a1)
+                s + "a"
+              else
+                s
+            }
+            .log("a2")
   } yield {
     import canequals.eithers.canEqualEither
 
