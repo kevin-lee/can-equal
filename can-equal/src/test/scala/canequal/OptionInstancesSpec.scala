@@ -1,4 +1,4 @@
-package canequals
+package canequal
 
 import hedgehog._
 import hedgehog.runner._
@@ -24,7 +24,7 @@ object OptionInstancesSpec extends Properties {
   def testSomeEqualsSome: Property = for {
     a <- Gen.int(Range.linear(Int.MinValue, Int.MaxValue)).log("a")
   } yield {
-    import canequals.options.canEqualOptions
+    import canequal.options.canEqualOptions
     val o1: Option[Int] = Some(a)
     val o2: Option[Int] = Some(a)
     Result.diffNamed("Some == Some", o1, o2)(_ == _)
@@ -42,7 +42,7 @@ object OptionInstancesSpec extends Properties {
             }
             .log("a2")
   } yield {
-    import canequals.options.canEqualOptions
+    import canequal.options.canEqualOptions
     val o1: Option[Int] = Some(a1)
     val o2: Option[Int] = Some(a2)
     Result.diffNamed("Some != Some", o1, o2)(_ != _)
@@ -51,7 +51,7 @@ object OptionInstancesSpec extends Properties {
   def testSomeEqualsNone: Property = for {
     a <- Gen.int(Range.linear(Int.MinValue, Int.MaxValue)).log("a")
   } yield {
-    import canequals.options.canEqualOptions
+    import canequal.options.canEqualOptions
     val o1: Option[Int] = Some(a)
     val o2: Option[Int] = None
     Result.diffNamed("Some == None should be false", o1, o2)((x1, x2) => (x1 == x2) == false)
@@ -60,7 +60,7 @@ object OptionInstancesSpec extends Properties {
   def testNoneEqualsSome: Property = for {
     a <- Gen.int(Range.linear(Int.MinValue, Int.MaxValue)).log("a")
   } yield {
-    import canequals.options.canEqualOptions
+    import canequal.options.canEqualOptions
     val o1: Option[Int] = None
     val o2: Option[Int] = Some(a)
     Result.diffNamed("Some == None should be false", o1, o2)((x1, x2) => (x1 == x2) == false)
@@ -69,7 +69,7 @@ object OptionInstancesSpec extends Properties {
   def testSomeNotEqualNone: Property = for {
     a <- Gen.int(Range.linear(Int.MinValue, Int.MaxValue)).log("a")
   } yield {
-    import canequals.options.canEqualOptions
+    import canequal.options.canEqualOptions
     val o1: Option[Int] = Some(a)
     val o2: Option[Int] = None
     Result.diffNamed("Some != None should be true", o1, o2)(_ != _)
@@ -78,21 +78,21 @@ object OptionInstancesSpec extends Properties {
   def testNoneNotEqualSome: Property = for {
     a <- Gen.int(Range.linear(Int.MinValue, Int.MaxValue)).log("a")
   } yield {
-    import canequals.options.canEqualOptions
+    import canequal.options.canEqualOptions
     val o1: Option[Int] = None
     val o2: Option[Int] = Some(a)
     Result.diffNamed("Some != None should be true", o1, o2)(_ != _)
   }
 
   def testNoneEqualsNone: Result = {
-    import canequals.options.canEqualOptions
+    import canequal.options.canEqualOptions
     val o1: Option[Int] = None
     val o2: Option[Int] = None
     Result.diffNamed("None == None should be true", o1, o2)(_ == _)
   }
 
   def testNoneNotEqualNone: Result = {
-    import canequals.options.canEqualOptions
+    import canequal.options.canEqualOptions
     val o1: Option[Int] = None
     val o2: Option[Int] = None
     Result.diffNamed("None != None should be false", o1, o2)((x1, x2) => (x1 != x2) == false)
@@ -101,7 +101,7 @@ object OptionInstancesSpec extends Properties {
   def testSomeEqualsSomePatternMatching: Property = for {
     a <- Gen.int(Range.linear(Int.MinValue, Int.MaxValue)).log("a")
   } yield {
-    import canequals.options.canEqualOption
+    import canequal.options.canEqualOption
     val o1: Option[Int] = Some(a)
     o1 match {
       case Some(a) =>

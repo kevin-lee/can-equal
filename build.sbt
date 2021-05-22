@@ -13,7 +13,7 @@ ThisBuild / scmInfo :=
   )
 ThisBuild / licenses := props.licenses
 
-lazy val canEqualsRoot = (project in file("."))
+lazy val canEqualRoot = (project in file("."))
   .settings(
     name := s"${props.RepoName}-root",
     licenses := props.licenses,
@@ -22,10 +22,10 @@ lazy val canEqualsRoot = (project in file("."))
     noPublish
   )
   .aggregate(
-    canEquals
+    canEqual
   )
 
-lazy val canEquals = Project(props.RepoName, file(props.RepoName))
+lazy val canEqual = Project(props.RepoName, file(props.RepoName))
   .settings(
     name := props.RepoName,
     libraryDependencies ++= libs.hedgehog,
@@ -41,7 +41,7 @@ lazy val props =
 
     final val Organization   = "io.kevinlee"
     final val GitHubUsername = "Kevin-Lee"
-    final val RepoName       = "can-equals"
+    final val RepoName       = "can-equal"
 
     final val HedgehogVersion = "0.7.0"
 

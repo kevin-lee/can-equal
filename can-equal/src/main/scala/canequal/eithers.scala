@@ -1,4 +1,4 @@
-package canequals
+package canequal
 
 /** @author Kevin Lee
   * @since 2021-05-19
