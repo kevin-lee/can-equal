@@ -2,8 +2,8 @@ name: Build-All
 
 on:
   push:
-    branches-ignore:
-      - main
+    branches:
+      - "**"
 
   pull_request:
     branches:
