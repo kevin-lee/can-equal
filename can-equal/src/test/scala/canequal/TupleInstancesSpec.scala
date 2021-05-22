@@ -1,4 +1,4 @@
-package canequals
+package canequal
 
 import hedgehog._
 import hedgehog.runner._
@@ -41,8 +41,8 @@ object TupleInstancesSpec extends Properties {
   def testTuple2EqualsTuple2: Property = for {
     tuple <- genTuple5.map(_.take(2)).log("tuple")
   } yield {
-    import canequals.tuples.canEqualEmptyTuple
-    import canequals.tuples.canEqualTuple
+    import canequal.tuples.canEqualEmptyTuple
+    import canequal.tuples.canEqualTuple
 
     Result.diffNamed("(Int, String) == (Int, String)", tuple, tuple)(_ == _)
   }
@@ -50,8 +50,8 @@ object TupleInstancesSpec extends Properties {
   def testTuple3EqualsTuple3: Property = for {
     tuple <- genTuple5.map(_.take(3)).log("tuple")
   } yield {
-    import canequals.tuples.canEqualEmptyTuple
-    import canequals.tuples.canEqualTuple
+    import canequal.tuples.canEqualEmptyTuple
+    import canequal.tuples.canEqualTuple
 
     Result.diffNamed("(Int, String, Boolean) == (Int, String, Boolean)", tuple, tuple)(_ == _)
   }
@@ -59,8 +59,8 @@ object TupleInstancesSpec extends Properties {
   def testTuple4EqualsTuple4: Property = for {
     tuple <- genTuple5.map(_.take(4)).log("tuple")
   } yield {
-    import canequals.tuples.canEqualEmptyTuple
-    import canequals.tuples.canEqualTuple
+    import canequal.tuples.canEqualEmptyTuple
+    import canequal.tuples.canEqualTuple
 
     Result.diffNamed(
       "(Int, String, Boolean, Char) == (Int, String, Boolean, Char)",
@@ -72,8 +72,8 @@ object TupleInstancesSpec extends Properties {
   def testTuple5EqualsTuple5: Property = for {
     tuple <- genTuple5.log("tuple")
   } yield {
-    import canequals.tuples.canEqualEmptyTuple
-    import canequals.tuples.canEqualTuple
+    import canequal.tuples.canEqualEmptyTuple
+    import canequal.tuples.canEqualTuple
 
     Result.diffNamed(
       "(Int, String, Boolean, Char, Double) == (Int, String, Boolean, Char, Double)",
@@ -86,8 +86,8 @@ object TupleInstancesSpec extends Properties {
     t1    <- genTuple5.log("t1")
     tuple <- genTuple5.map(t2 => (t1 ++ t2).take(6)).log("tuple")
   } yield {
-    import canequals.tuples.canEqualEmptyTuple
-    import canequals.tuples.canEqualTuple
+    import canequal.tuples.canEqualEmptyTuple
+    import canequal.tuples.canEqualTuple
 
     Result.diffNamed(
       "(Int, String, Boolean, Char, Double, Int) == (Int, String, Boolean, Char, Double, Int)",
@@ -100,8 +100,8 @@ object TupleInstancesSpec extends Properties {
     t1    <- genTuple5.log("t1")
     tuple <- genTuple5.map(t2 => (t1 ++ t2).take(7)).log("tuple")
   } yield {
-    import canequals.tuples.canEqualEmptyTuple
-    import canequals.tuples.canEqualTuple
+    import canequal.tuples.canEqualEmptyTuple
+    import canequal.tuples.canEqualTuple
 
     Result.diffNamed(
       "(Int, String, Boolean, Char, Double, Int, String) == (Int, String, Boolean, Char, Double, Int, String)",

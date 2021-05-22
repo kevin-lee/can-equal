@@ -1,4 +1,4 @@
-package canequals
+package canequal
 
 import hedgehog._
 import hedgehog.runner._
@@ -22,7 +22,7 @@ object CollectionInstancesSpec extends Properties {
   def testNonEmptyListPatternMatching: Property = for {
     ns <- Gen.int(Range.linear(Int.MinValue, Int.MaxValue)).list(Range.linear(1, 10)).log("ns")
   } yield {
-    import canequals.collections.canEqualSeq
+    import canequal.collections.canEqualSeq
     ns match {
       case x :: xs =>
         Result.success
@@ -32,7 +32,7 @@ object CollectionInstancesSpec extends Properties {
   }
 
   def testNilPatternMatching: Result = {
-    import canequals.collections.canEqualSeq
+    import canequal.collections.canEqualSeq
     val ns: List[Int] = Nil
     ns match {
       case x :: xs =>
@@ -43,19 +43,19 @@ object CollectionInstancesSpec extends Properties {
   }
 
   def testNonEmptyListEqualsNil: Result = {
-    import canequals.collections.canEqualSeq
+    import canequal.collections.canEqualSeq
     val ns = List(1, 2, 3)
     Result.diffNamed("List(1, 2, 3) == Nil should return false", ns, Nil)((a, b) => (a == b) == false)
   }
 
   def testNonEmptyListEqualsEmptyList: Result = {
-    import canequals.collections.canEqualSeq
+    import canequal.collections.canEqualSeq
     val ns = List(1, 2, 3)
     Result.diffNamed("List(1, 2, 3) == Nil should return false", ns, List())((a, b) => (a == b) == false)
   }
 
   def testNonEmptySeqEqualsEmptySeq: Result = {
-    import canequals.collections.canEqualSeq
+    import canequal.collections.canEqualSeq
     val ns = Seq(1, 2, 3)
     Result.diffNamed("Seq(1, 2, 3) == Seq should return false", ns, List())((a, b) => (a == b) == false)
   }

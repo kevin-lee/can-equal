@@ -1,4 +1,4 @@
-package canequals
+package canequal
 
 import hedgehog._
 import hedgehog.runner._
@@ -23,7 +23,7 @@ object EitherInstancesSpec extends Properties {
   def testRightEqualsRight: Property = for {
     b <- Gen.int(Range.linear(Int.MinValue, Int.MaxValue)).log("b")
   } yield {
-    import canequals.eithers.canEqualEither
+    import canequal.eithers.canEqualEither
 
     val r1: Either[String, Int] = Right(b)
     val r2: Either[String, Int] = Right(b)
@@ -42,7 +42,7 @@ object EitherInstancesSpec extends Properties {
             }
             .log("b2")
   } yield {
-    import canequals.eithers.canEqualEither
+    import canequal.eithers.canEqualEither
 
     val r1: Either[String, Int] = Right(b1)
     val r2: Either[String, Int] = Right(b2)
@@ -52,7 +52,7 @@ object EitherInstancesSpec extends Properties {
   def testLeftEqualsLeft: Property = for {
     a <- Gen.string(Gen.unicodeAll, Range.linear(0, 20)).log("a")
   } yield {
-    import canequals.eithers.canEqualEither
+    import canequal.eithers.canEqualEither
 
     val l1: Either[String, Int] = Left(a)
     val l2: Either[String, Int] = Left(a)
@@ -71,7 +71,7 @@ object EitherInstancesSpec extends Properties {
             }
             .log("a2")
   } yield {
-    import canequals.eithers.canEqualEither
+    import canequal.eithers.canEqualEither
 
     val l1: Either[String, Int] = Left(a1)
     val l2: Either[String, Int] = Left(a2)
@@ -82,7 +82,7 @@ object EitherInstancesSpec extends Properties {
     a <- Gen.string(Gen.unicodeAll, Range.linear(0, 20)).log("a")
     b <- Gen.int(Range.linear(Int.MinValue, Int.MaxValue)).log("b")
   } yield {
-    import canequals.eithers.canEqualEither
+    import canequal.eithers.canEqualEither
 
     val r1: Either[String, Int] = Right(b)
     val r2: Either[String, Int] = Left(a)
@@ -93,7 +93,7 @@ object EitherInstancesSpec extends Properties {
     a <- Gen.string(Gen.unicodeAll, Range.linear(0, 20)).log("a")
     b <- Gen.int(Range.linear(Int.MinValue, Int.MaxValue)).log("b")
   } yield {
-    import canequals.eithers.canEqualEither
+    import canequal.eithers.canEqualEither
 
     val r1: Either[String, Int] = Left(a)
     val r2: Either[String, Int] = Right(b)
@@ -104,7 +104,7 @@ object EitherInstancesSpec extends Properties {
     a <- Gen.string(Gen.unicodeAll, Range.linear(0, 20)).log("a")
     b <- Gen.int(Range.linear(Int.MinValue, Int.MaxValue)).log("b")
   } yield {
-    import canequals.eithers.canEqualEither
+    import canequal.eithers.canEqualEither
 
     val r1: Either[String, Int] = Right(b)
     val r2: Either[String, Int] = Left(a)
@@ -115,7 +115,7 @@ object EitherInstancesSpec extends Properties {
     a <- Gen.string(Gen.unicodeAll, Range.linear(0, 20)).log("a")
     b <- Gen.int(Range.linear(Int.MinValue, Int.MaxValue)).log("b")
   } yield {
-    import canequals.eithers.canEqualEither
+    import canequal.eithers.canEqualEither
 
     val r1: Either[String, Int] = Left(a)
     val r2: Either[String, Int] = Right(b)

@@ -1,4 +1,4 @@
-package canequals
+package canequal
 
 import hedgehog._
 import hedgehog.runner._
@@ -54,7 +54,7 @@ object allSpec extends Properties {
     example("test non-empty Seq == Seq()", testNonEmptySeqEqualsEmptySeq),
   )
 
-  import canequals.all.given
+  import canequal.all.given
 
   def testSomeEqualsSome: Property = for {
     a <- Gen.int(Range.linear(Int.MinValue, Int.MaxValue)).log("a")
@@ -258,8 +258,8 @@ object allSpec extends Properties {
   def testTuple3EqualsTuple3: Property = for {
     tuple <- genTuple5.map(_.take(3)).log("tuple")
   } yield {
-    import canequals.tuples.canEqualEmptyTuple
-    import canequals.tuples.canEqualTuple
+    import canequal.tuples.canEqualEmptyTuple
+    import canequal.tuples.canEqualTuple
 
     Result.diffNamed("(Int, String, Boolean) == (Int, String, Boolean)", tuple, tuple)(_ == _)
   }
@@ -278,8 +278,8 @@ object allSpec extends Properties {
   def testTuple5EqualsTuple5: Property = for {
     tuple <- genTuple5.log("tuple")
   } yield {
-    import canequals.tuples.canEqualEmptyTuple
-    import canequals.tuples.canEqualTuple
+    import canequal.tuples.canEqualEmptyTuple
+    import canequal.tuples.canEqualTuple
 
     Result.diffNamed(
       "(Int, String, Boolean, Char, Double) == (Int, String, Boolean, Char, Double)",
