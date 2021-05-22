@@ -20,7 +20,7 @@ lazy val canEqualRoot = (project in file("."))
     licenses := props.licenses,
     /* GitHub Release { */
     devOopsPackagedArtifacts := List(
-      s"*/target/scala-*/${name.value}*.jar",
+      s"*/target/scala-*/${props.RepoName}*.jar",
     )
     /* } GitHub Release */
   )
