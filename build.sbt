@@ -1,8 +1,9 @@
 ThisBuild / organization := props.Organization
 ThisBuild / scalaVersion := props.ProjectScalaVersion
 ThisBuild / developers := List(
-  Developer("Kevin-Lee", "Kevin Lee", "kevin.code@kevinlee.io", url("https://github.com/Kevin-Lee"))
+  Developer(props.GitHubUsername, "Kevin Lee", "kevin.code@kevinlee.io", url(s"https://github.com/${props.GitHubUsername}"))
 )
+ThisBuild / homepage := url(s"https://github.com/${props.GitHubUsername}/${props.RepoName}").some
 ThisBuild / scmInfo :=
   Some(
     ScmInfo(
