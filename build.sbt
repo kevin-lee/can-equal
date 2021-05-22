@@ -13,6 +13,7 @@ ThisBuild / scmInfo :=
 ThisBuild / licenses := props.licenses
 
 lazy val canEqualRoot = (project in file("."))
+  .enablePlugins(DevOopsGitHubReleasePlugin)
   .settings(
     name := s"${props.RepoName}-root",
     licenses := props.licenses,
