@@ -1,5 +1,4 @@
 ThisBuild / organization := props.Organization
-ThisBuild / version := props.ProjectVersion
 ThisBuild / scalaVersion := props.ProjectScalaVersion
 ThisBuild / developers := List(
   Developer("Kevin-Lee", "Kevin Lee", "kevin.code@kevinlee.io", url("https://github.com/Kevin-Lee"))
@@ -35,7 +34,6 @@ lazy val canEqual = Project(props.RepoName, file(props.RepoName))
 
 lazy val props =
   new {
-    final val ProjectVersion = "0.1.0"
 
     final val ProjectScalaVersion = "3.0.0"
 
