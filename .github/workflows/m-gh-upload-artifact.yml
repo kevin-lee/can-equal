@@ -41,7 +41,8 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.RELEASE_AUTH_TOKEN_GITHUB }}
         run: |
-          PROJECT_VERSION="${{ github.event.inputs.project-version }}"
+          PROJECT_VERSION_INPUT="${{ github.event.inputs.project-version }}"
+          PROJECT_VERSION=${PROJECT_VERSION_INPUT#v}
           echo "Run] sbt ci-release"
           export SOURCE_DATE_EPOCH=$(date +%s)
           echo "SOURCE_DATE_EPOCH=$SOURCE_DATE_EPOCH"
