@@ -47,6 +47,11 @@ object allSpec extends Properties {
       "(Int, String, Boolean, Char, Double, Int, String) == (Int, String, Boolean, Char, Double, Int, String)",
       testTuple5EqualsTuple7
     ),
+    property("test non-empty List pattern matching", testNonEmptyListPatternMatching),
+    example("test Nil pattern matching", testNilPatternMatching),
+    example("test non-empty List == Nil", testNonEmptyListEqualsNil),
+    example("test non-empty List == List()", testNonEmptyListEqualsEmptyList),
+    example("test non-empty Seq == Seq()", testNonEmptySeqEqualsEmptySeq),
   )
 
   import canequals.all.given
@@ -305,6 +310,43 @@ object allSpec extends Properties {
       tuple,
       tuple
     )(_ == _)
+  }
+
+
+  def testNonEmptyListPatternMatching: Property = for {
+    ns <- Gen.int(Range.linear(Int.MinValue, Int.MaxValue)).list(Range.linear(1, 10)).log("ns")
+  } yield {
+    ns match {
+      case x :: xs =>
+        Result.success
+      case Nil     =>
+        Result.failure.log("ns should not be Nil")
+    }
+  }
+
+  def testNilPatternMatching: Result = {
+    val ns: List[Int] = Nil
+    ns match {
+      case x :: xs =>
+        Result.failure.log("ns should not be non-empty List")
+      case Nil     =>
+        Result.success
+    }
+  }
+
+  def testNonEmptyListEqualsNil: Result = {
+    val ns = List(1, 2, 3)
+    Result.diffNamed("List(1, 2, 3) == Nil should return false", ns, Nil)((a, b) => (a == b) == false)
+  }
+
+  def testNonEmptyListEqualsEmptyList: Result = {
+    val ns = List(1, 2, 3)
+    Result.diffNamed("List(1, 2, 3) == Nil should return false", ns, List())((a, b) => (a == b) == false)
+  }
+
+  def testNonEmptySeqEqualsEmptySeq: Result = {
+    val ns = Seq(1, 2, 3)
+    Result.diffNamed("Seq(1, 2, 3) == Seq should return false", ns, List())((a, b) => (a == b) == false)
   }
 
 }
