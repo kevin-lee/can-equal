@@ -18,6 +18,11 @@ lazy val canEqualRoot = (project in file("."))
   .settings(
     name := s"${props.RepoName}-root",
     licenses := props.licenses,
+    /* GitHub Release { */
+    devOopsPackagedArtifacts := List(
+      s"*/target/scala-*/${name.value}*.jar",
+    )
+    /* } GitHub Release */
   )
   .settings(
     noPublish

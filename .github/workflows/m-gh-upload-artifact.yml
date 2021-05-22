@@ -1,0 +1,57 @@
+name: "[M] GH Upload Artifacts"
+
+on:
+  workflow_dispatch:
+    inputs:
+      project-version:
+        description: 'Project Version (e.g v1.2.3)'
+        required: true
+
+env:
+  GH_JAVA_VERSION: "adopt@1.11"
+
+
+jobs:
+
+  gh-upload-artifacts:
+
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2.3.4
+        with:
+          fetch-depth: 0
+      - uses: olafurpg/setup-scala@v10
+        with:
+          java-version: ${{ env.GH_JAVA_VERSION }}
+      - uses: olafurpg/setup-gpg@v3
+
+      - name: Cache SBT
+        uses: actions/cache@v2.1.5
+        with:
+          path: |
+            ~/.ivy2/cache
+            ~/.cache/coursier
+            ~/.sbt
+          key: ${{ runner.os }}-sbt-${{ hashFiles('**/*.sbt') }}
+          restore-keys: |
+            ${{ runner.os }}-sbt
+
+      - name: "sbt ci-release - ${{ github.run_number }}"
+        env:
+          GITHUB_TOKEN: ${{ secrets.RELEASE_AUTH_TOKEN_GITHUB }}
+        run: |
+          PROJECT_VERSION="${{ github.event.inputs.project-version }}"
+          echo "Run] sbt ci-release"
+          export SOURCE_DATE_EPOCH=$(date +%s)
+          echo "SOURCE_DATE_EPOCH=$SOURCE_DATE_EPOCH"
+          echo 'sbt -J-XX:MaxMetaspaceSize=1024m -J-Xmx2048m -v clean +test +packagedArtifacts devOopsGitHubReleaseUploadArtifacts'
+          sbt \
+          -J-XX:MaxMetaspaceSize=1024m \
+          -J-Xmx2048m \
+          -v \
+          'set ThisBuild / version := "'"${PROJECT_VERSION}"'"' \
+          clean \
+          +test \
+          +packagedArtifacts \
+          devOopsGitHubReleaseUploadArtifacts
