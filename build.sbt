@@ -57,8 +57,8 @@ lazy val props =
 lazy val libs =
   new {
     lazy val hedgehog = Seq(
-      "qa.hedgehog" %% "hedgehog-core"   % props.HedgehogVersion,
-      "qa.hedgehog" %% "hedgehog-runner" % props.HedgehogVersion,
-      "qa.hedgehog" %% "hedgehog-sbt"    % props.HedgehogVersion
+      "qa.hedgehog" %% "hedgehog-core"   % props.HedgehogVersion % Test,
+      "qa.hedgehog" %% "hedgehog-runner" % props.HedgehogVersion % Test,
+      "qa.hedgehog" %% "hedgehog-sbt"    % props.HedgehogVersion % Test,
     )
   }
