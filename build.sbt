@@ -1,23 +1,28 @@
 ThisBuild / organization := props.Organization
 ThisBuild / scalaVersion := props.ProjectScalaVersion
-ThisBuild / developers := List(
-  Developer(props.GitHubUsername, "Kevin Lee", "kevin.code@kevinlee.io", url(s"https://github.com/${props.GitHubUsername}"))
+ThisBuild / developers   := List(
+  Developer(
+    props.GitHubUsername,
+    "Kevin Lee",
+    "kevin.code@kevinlee.io",
+    url(s"https://github.com/${props.GitHubUsername}")
+  )
 )
-ThisBuild / homepage := url(s"https://github.com/${props.GitHubUsername}/${props.RepoName}").some
-ThisBuild / scmInfo :=
+ThisBuild / homepage     := url(s"https://github.com/${props.GitHubUsername}/${props.RepoName}").some
+ThisBuild / scmInfo      :=
   Some(
     ScmInfo(
       url(s"https://github.com/${props.GitHubUsername}/${props.RepoName}"),
       s"https://github.com/${props.GitHubUsername}/${props.RepoName}.git",
     )
   )
-ThisBuild / licenses := props.licenses
+ThisBuild / licenses     := props.licenses
 
 lazy val canEqualRoot = (project in file("."))
   .enablePlugins(DevOopsGitHubReleasePlugin)
   .settings(
-    name := s"${props.RepoName}-root",
-    licenses := props.licenses,
+    name                     := s"${props.RepoName}-root",
+    licenses                 := props.licenses,
     /* GitHub Release { */
     devOopsPackagedArtifacts := List(
       s"*/target/scala-*/${props.RepoName}*.jar",
@@ -33,7 +38,7 @@ lazy val canEqualRoot = (project in file("."))
 
 lazy val canEqual = Project(props.RepoName, file(props.RepoName))
   .settings(
-    name := props.RepoName,
+    name     := props.RepoName,
     libraryDependencies ++= libs.hedgehog,
     testFrameworks ~= (testFws => TestFramework("hedgehog.sbt.Framework") +: testFws),
     licenses := props.licenses,
