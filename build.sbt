@@ -21,13 +21,8 @@ ThisBuild / licenses     := props.licenses
 lazy val canEqualRoot = (project in file("."))
   .enablePlugins(DevOopsGitHubReleasePlugin)
   .settings(
-    name                     := s"${props.RepoName}-root",
-    licenses                 := props.licenses,
-    /* GitHub Release { */
-    devOopsPackagedArtifacts := List(
-      s"*/target/scala-*/${props.RepoName}*.jar",
-    )
-    /* } GitHub Release */
+    name     := s"${props.RepoName}-root",
+    licenses := props.licenses,
   )
   .settings(
     noPublish
